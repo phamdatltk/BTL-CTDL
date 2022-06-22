@@ -14,7 +14,7 @@ int main(){
 
     deleteTail(&head);
 
-    displayList(head);
+    printList(head);
 
     return 0;
 }
