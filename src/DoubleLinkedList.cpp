@@ -190,3 +190,38 @@ void push(struct node** head_ref, int new_data)
     (*head_ref) = new_node;
 }
  
+
+void swap(int &a,int &b){
+    int c = a;
+    a = b;
+    b = c;
+}
+
+void bubbleSort(struct node *start)
+{
+    int swapped, i;
+    struct node *ptr1;
+    struct node *lptr = NULL;
+  
+    /* Checking for empty list */
+    if (start == NULL)
+        return;
+  
+    do
+    {
+        swapped = 0;
+        ptr1 = start;
+  
+        while (ptr1->next != lptr)
+        {
+            if (ptr1->data > ptr1->next->data)
+            {
+                swap(ptr1->data, ptr1->next->data);
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    }
+    while (swapped);
+}
