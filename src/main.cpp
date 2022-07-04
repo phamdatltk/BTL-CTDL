@@ -12,12 +12,7 @@ int main(){
     insertFront(&head, 6);
     insertAfter(head->next, 1);
     insertTail(&head, 10);
-
-
-    bubbleSort(head);
-    
-    deleteTail(&head);
-
+    selectionSort(head);
     printList(head);
 
     return 0;

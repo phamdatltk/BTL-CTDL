@@ -14,7 +14,6 @@ void insertTail(struct node **head, int data);
 void deleteHead(struct node **head);
 void deleteTail(struct node **head);
 void deleteNode(struct node **head, struct node* del_node);
-void insertionSort(struct node **head);
 void sortedInsert(struct node** head_ref, struct node* newnode);
 
 // function to sort a doubly linked list using insertion sort
@@ -25,3 +24,5 @@ void printList(struct node* head);
 
 void swap(int &a,int &b);
 void bubbleSort(struct node *start);
+
+void selectionSort(struct node *start);

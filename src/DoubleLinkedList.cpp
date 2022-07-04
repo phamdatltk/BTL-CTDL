@@ -73,23 +73,6 @@ void deleteNode(struct node **head, struct node* del_node){
     free(del_node);
 }
 
-void insertionSoft(struct node **head){
-    struct node *i = (*head)->next;
-    while(i->next != NULL){
-        
-        struct node *temp = i;
-        struct node *j = temp->prev;
-        while(temp->data <= j->data){
-            j->next = j;
-            if(j->prev != NULL)
-                j = j->prev;
-                
-        }
-
-        i = i->next;
-    }
-}
-
 void sortedInsert(struct node** head_ref, struct node* newnode)
 {
     struct node* current;
@@ -224,4 +207,23 @@ void bubbleSort(struct node *start)
         lptr = ptr1;
     }
     while (swapped);
+}
+
+void selectionSort(struct node *start){
+    struct node *ptr;
+    struct node *lptr = NULL;
+    
+    if(start = NULL)
+        return;
+    
+    while(ptr->next != NULL){
+        struct node *ptr1 = ptr->next;
+        while(ptr1->next != NULL){
+            if(ptr1->data < ptr->data){
+                swap(ptr1->data, ptr->data);
+            }
+            ptr1 = ptr1->next;
+        }
+        ptr = ptr->next;
+    }
 }
