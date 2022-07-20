@@ -28,8 +28,9 @@ int main(){
     double time_use;
 
     start = clock();     
-    selectionSort(head); 
-    end = clock();  
+    selectionSort2(head);
+    end = clock();
+    printList(head);
     time_use = (double)(end - start) / CLOCKS_PER_SEC;    
     cout<<"Thoi gian chay: "<<time_use;
     cout << endl;

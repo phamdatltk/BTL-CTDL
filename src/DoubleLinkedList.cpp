@@ -202,3 +202,30 @@ void selectionSort(struct node<T> *start){
         ptr = ptr->next;
     }
 }
+
+template<typename T>
+void selectionSort2(struct node<T>* head)
+{
+	struct node<T>* temp = head;
+
+	// Traverse the List
+	while (temp) {
+		struct node<T>* min = temp;
+		struct node<T>* r = temp->next;
+
+		// Traverse the unsorted sublist
+		while (r) {
+			if (min->data > r->data)
+				min = r;
+
+			r = r->next;
+		}
+
+		// Swap Data
+		int x = temp->data;
+		temp->data = min->data;
+		min->data = x;
+		temp = temp->next;
+	}
+}
+
