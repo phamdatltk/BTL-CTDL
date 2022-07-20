@@ -1,7 +1,8 @@
 #include "DoubleLinkedList.h"
 
-void insertFront(struct node **head, int data){
-    struct node *newNode = new node;
+template<typename T>
+void insertFront(struct node<T> **head, T data){
+    struct node<T> *newNode = new node<T>;
     newNode->data = data;
     newNode->next = *head;
     newNode->prev = NULL;
@@ -11,8 +12,9 @@ void insertFront(struct node **head, int data){
     (*head) = newNode;
 }
 
-void insertAfter(struct node *prev, int data){
-    struct node* newNode = new node;
+template<typename T>
+void insertAfter(struct node<T> *prev, T data){
+    struct node<T>* newNode = new node<T>;
     newNode->data = data;
     newNode->next = prev->next;
     prev->next = newNode;
@@ -20,12 +22,12 @@ void insertAfter(struct node *prev, int data){
     prev->next = newNode;
 }
 
-
-void insertTail(struct node **head, int data){
-    struct node *newNode = new node;
+template<typename T>
+void insertTail(struct node<T> **head, T data){
+    struct node<T> *newNode = new node<T>;
     newNode->data = data;
     newNode->next = NULL;
-    struct node *temp = *head;
+    struct node<T> *temp = *head;
     if(*head == NULL){
         newNode->prev = NULL;
         *head = newNode;
@@ -33,7 +35,6 @@ void insertTail(struct node **head, int data){
     }
     while (temp->next != NULL)
     {
-        /* code */
         temp = temp->next;
     }
 
@@ -41,25 +42,27 @@ void insertTail(struct node **head, int data){
     newNode->prev = temp;
 }
 
-void deleteHead(struct node **head){
+template<typename T>
+void deleteHead(struct node<T> **head){
     if(*head == NULL){
         return;
     }
     *head = (*head)->next;
 }
 
-void deleteTail(struct node **head){
-    struct node* temp = new node ;
+template<typename T>
+void deleteTail(struct node<T> **head){
+    struct node<T>* temp = new node<T> ;
     temp = *head;
     while (temp->next != NULL)
     {
-        /* code */
         temp = temp->next;
     }
     temp->prev->next = temp->next;
 }
 
-void deleteNode(struct node **head, struct node* del_node){
+template<typename T>
+void deleteNode(struct node<T> **head, struct node<T>* del_node){
     if(*head == NULL || del_node == NULL){
         return;
     }
@@ -73,16 +76,13 @@ void deleteNode(struct node **head, struct node* del_node){
     free(del_node);
 }
 
-void sortedInsert(struct node** head_ref, struct node* newnode)
+template<typename T>
+void sortedInsert(struct node<T>** head_ref, struct node<T>* newnode)
 {
-    struct node* current;
- 
-    // if list is empty
+    struct node<T>* current;
     if (*head_ref == NULL)
         *head_ref = newnode;
  
-    // if the node is to be inserted at the beginning
-    // of the doubly linked list
     else if ((*head_ref)->data >= newnode->data) {
         newnode->next = *head_ref;
         newnode->next->prev = newnode;
@@ -92,18 +92,12 @@ void sortedInsert(struct node** head_ref, struct node* newnode)
     else {
         current = *head_ref;
  
-        // locate the node after which the new node
-        // is to be inserted
         while (current->next != NULL &&
                current->next->data < newnode->data)
             current = current->next;
  
-        /*Make the appropriate links */
- 
         newnode->next = current->next;
  
-        // if the new node is not inserted
-        // at the end of the list
         if (current->next != NULL)
             newnode->next->prev = newnode;
  
@@ -112,37 +106,25 @@ void sortedInsert(struct node** head_ref, struct node* newnode)
     }
 }
 
-// function to sort a doubly linked list using insertion sort
-void insertionSort(struct node** head_ref)
+template<typename T>
+void insertionSort(struct node<T>** head_ref)
 {
-    // Initialize 'sorted' - a sorted doubly linked list
-    struct node* sorted = NULL;
- 
-    // Traverse the given doubly linked list and
-    // insert every node to 'sorted'
-    struct node* current = *head_ref;
+    struct node<T>* sorted = NULL;
+    struct node<T>* current = *head_ref;
     while (current != NULL) {
- 
-        // Store next for next iteration
-        struct node* next = current->next;
- 
-        // removing all the links so as to create 'current'
-        // as a new node for insertion
+        struct node<T>* next = current->next;
         current->prev = current->next = NULL;
  
-        // insert current in 'sorted' doubly linked list
         sortedInsert(&sorted, current);
  
-        // Update current
         current = next;
     }
  
-    // Update head_ref to point to sorted doubly linked list
     *head_ref = sorted;
 }
 
-// function to print the doubly linked list
-void printList(struct node* head)
+template<typename T>
+void printList(struct node<T>* head)
 {
     while (head != NULL) {
         printf("%d ", head->data);
@@ -150,43 +132,36 @@ void printList(struct node* head)
     }
 }
 
-// function to insert a node at the beginning of
-// the doubly linked list
-void push(struct node** head_ref, int new_data)
+template<typename T>
+void push(struct node<T>** head_ref, T new_data)
 {
-    /* allocate node */
-    struct node* new_node =
-         (struct node*)malloc(sizeof(struct node));
+    struct node<T>* new_node =
+         (struct node<T>*)malloc(sizeof(struct node<T>));
  
-    /* put in the data  */
     new_node->data = new_data;
- 
-    /* Make next of new node as head and previous as NULL */
     new_node->next = (*head_ref);
     new_node->prev = NULL;
  
-    /* change prev of head node to new node */
     if ((*head_ref) != NULL)
         (*head_ref)->prev = new_node;
  
-    /* move the head to point to the new node */
     (*head_ref) = new_node;
 }
  
-
-void swap(int &a,int &b){
-    int c = a;
+template<typename T>
+void Swap(T &a,T &b){
+    T c = a;
     a = b;
     b = c;
 }
 
-void bubbleSort(struct node *start)
+template<typename T>
+void bubbleSort(struct node<T> *start)
 {
-    int swapped, i;
-    struct node *ptr1;
-    struct node *lptr = NULL;
+    T swapped;
+    struct node<T> *ptr1;
+    struct node<T> *lptr = NULL;
   
-    /* Checking for empty list */
     if (start == NULL)
         return;
   
@@ -199,7 +174,7 @@ void bubbleSort(struct node *start)
         {
             if (ptr1->data > ptr1->next->data)
             {
-                swap(ptr1->data, ptr1->next->data);
+                Swap(ptr1->data, ptr1->next->data);
                 swapped = 1;
             }
             ptr1 = ptr1->next;
@@ -209,18 +184,18 @@ void bubbleSort(struct node *start)
     while (swapped);
 }
 
-void selectionSort(struct node *start){
-    struct node *ptr;
-    struct node *lptr = NULL;
+template<typename T>
+void selectionSort(struct node<T> *start){
+    struct node<T> *ptr = start;
     
     if(start = NULL)
         return;
     
     while(ptr->next != NULL){
-        struct node *ptr1 = ptr->next;
+        struct node<T> *ptr1 = ptr->next;
         while(ptr1->next != NULL){
             if(ptr1->data < ptr->data){
-                swap(ptr1->data, ptr->data);
+                Swap(ptr1->data, ptr->data);
             }
             ptr1 = ptr1->next;
         }

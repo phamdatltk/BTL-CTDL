@@ -1,19 +1,38 @@
 #include<iostream>
-#include "DoubleLinkedList.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "DoubleLinkedList.cpp"
 using namespace std;
+
+int random(int minN, int maxN){
+    return minN + rand() % (maxN + 1 - minN);
+}
 
 int main(){
 
-    struct node *head = NULL;
-    
+    int n = 1000;
+    int arr[n];
+    srand((int)time(0));
+    int r;
+    for(int i = 0; i < n; ++i){
+        r = random(1,n);
+        arr[i] = r;
+    }
+    struct node<int> *head = NULL;
+    for(int i = 0; i < n; ++i){
+        insertFront(&head, arr[i]);
+    }
 
-    insertFront(&head, 5);
-    insertFront(&head, 4);
-    insertFront(&head, 6);
-    insertAfter(head->next, 1);
-    insertTail(&head, 10);
-    selectionSort(head);
-    printList(head);
+    clock_t start, end;
+    double time_use;
+
+    start = clock();     
+    selectionSort(head); 
+    end = clock();  
+    time_use = (double)(end - start) / CLOCKS_PER_SEC;    
+    cout<<"Thoi gian chay: "<<time_use;
+    cout << endl;
 
     return 0;
 }
